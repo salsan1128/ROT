@@ -1,0 +1,66 @@
+/*
+ * Name: Salvador I Sanchez
+ * Date: 2/6/2020
+ * Version: 5.0
+ * 
+ * About: This program ask the user for a phrase to ROT. Followed by asking how many rotations the user would like.
+ * Afterwards it calls the ROT function to rotate the letters in the phrase at the desired amount. It displays the progress.
+ * Finally it reverses the ROT back to its original phrase.
+ */
+
+import java.lang.String;
+import java.util.Scanner;
+
+public class main {
+	public static String rot(String phrase) {
+		String newPhrase = phrase.toUpperCase();
+		for(int i = 0; i < newPhrase.length(); ++i) {
+			if(newPhrase.charAt(i) <= 89 && newPhrase.charAt(i) >= 65) {
+				newPhrase = newPhrase.substring(0, i) + (char)(newPhrase.charAt(i) + 1) + newPhrase.substring(i+1);
+			}
+			else if(newPhrase.charAt(i) == 90) {
+				newPhrase = newPhrase.substring(0, i) + "A" + newPhrase.substring(i+1);
+			}
+		}
+		return newPhrase;
+	}
+	
+	public static String reverse(String phrase) {
+		String newPhrase = phrase.toUpperCase();
+		for(int i = 0; i < newPhrase.length(); ++i) {
+			if(newPhrase.charAt(i) <= 90 && newPhrase.charAt(i) >= 66) {
+				newPhrase = newPhrase.substring(0, i) + (char)(newPhrase.charAt(i) - 1) + newPhrase.substring(i+1);
+			}
+			else if(newPhrase.charAt(i) == 65) {
+				newPhrase = newPhrase.substring(0, i) + "Z" + newPhrase.substring(i+1);
+			}
+		}
+		return newPhrase;
+	}
+	
+	public static void main(String[] args) {
+		String 	phrase = "";
+		int		numOfROT = 0;
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Enter a string to ROT: ");
+		phrase = scan.next();
+		
+		System.out.println("How many times would you like to ROT?: ");
+		numOfROT = scan.nextInt();
+		
+		System.out.println("Plain: " + phrase);
+		System.out.println("Original: " + phrase.toUpperCase());
+		for(int i = 0; i < numOfROT; ++i) {
+			phrase = rot(phrase);
+			System.out.println("ROT " + (i+1) + ": " + phrase);
+		}
+
+		for(int i = 0; i < numOfROT; ++i) {
+			phrase = reverse(phrase);
+		}
+		System.out.println("Original phrase: " + phrase);
+		
+		scan.close();
+	}
+}
